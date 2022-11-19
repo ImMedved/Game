@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
-public class Board extends JPanel implements ActionListener, BoardLevel2 {
+public class Board2 extends JPanel implements ActionListener {
 
     private Image background;
     private Timer timer;
@@ -18,7 +18,7 @@ public class Board extends JPanel implements ActionListener, BoardLevel2 {
     private final int ICRAFT_Y = 60;
     private final int B_WIDTH = 612;
     private final int B_HEIGHT = 344;
-    private final int DELAY = 15;
+    private final int DELAY = 13;
 
     private final int[][] pos = {
             {1380, 29}, {1500, 59}, {1380, 89},
@@ -26,13 +26,13 @@ public class Board extends JPanel implements ActionListener, BoardLevel2 {
             {790, 259}, {760, 50}, {790, 150},
             {980, 209}, {560, 45}, {510, 70},
             {930, 159}, {590, 80}, {530, 60},
-            {940, 59}, {990, 30}, {520, 200},
+            {940, 59}, {990, 30}, {920, 200},
             {900, 259}, {660, 50}, {540, 90},
             {810, 220}, {860, 20}, {740, 180},
             {820, 128}, {490, 170}, {700, 30}
     };
 
-    public Board() {
+    public Board2() {
 
         initBoard();
     }
@@ -60,7 +60,7 @@ public class Board extends JPanel implements ActionListener, BoardLevel2 {
     }
     private void loadImage() {
 
-        ImageIcon ii = new ImageIcon("src/resources/background.jpg");
+        ImageIcon ii = new ImageIcon("src/resources/background2.jpg");
         background = ii.getImage();
     }
 
@@ -117,20 +117,16 @@ public class Board extends JPanel implements ActionListener, BoardLevel2 {
         g.drawString("Aliens left: " + aliens.size(), 5, 15);
     }
 
-    private void drawGameOver(Graphics g) { //переход на 2 уровень
+    private void drawGameOver(Graphics g) {
 
-        if (aliens.size() == 0) {
-            level2();
-        } else {
-            String msg = "Game Over";
-            Font small = new Font("Helvetica", Font.BOLD, 14);
-            FontMetrics fm = getFontMetrics(small);
+        String msg = "Game Over";
+        Font small = new Font("Helvetica", Font.BOLD, 14);
+        FontMetrics fm = getFontMetrics(small);
 
-            g.setColor(Color.white);
-            g.setFont(small);
-            g.drawString(msg, (B_WIDTH - fm.stringWidth(msg)) / 2,
-                    B_HEIGHT / 2);
-        }
+        g.setColor(Color.white);
+        g.setFont(small);
+        g.drawString(msg, (B_WIDTH - fm.stringWidth(msg)) / 2,
+                B_HEIGHT / 2);
     }
 
     @Override
@@ -231,34 +227,6 @@ public class Board extends JPanel implements ActionListener, BoardLevel2 {
                 }
             }
         }
-    }
-
-    public void level2(){
-        loadImage2();
-        paintComponent2(Graphics h);
-    }
-    private void loadImage2() {
-
-        ImageIcon ii = new ImageIcon("src/resources/background2.jpg");
-        background = ii.getImage();
-    }
-
-    @Override
-    public void paintComponent2(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(background, 0, 0, null);
-
-
-        if (ingame) {
-
-            drawObjects(g);
-
-        } else {
-
-            drawGameOver(g);
-        }
-
-        Toolkit.getDefaultToolkit().sync();
     }
 
     private class TAdapter extends KeyAdapter {

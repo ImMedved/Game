@@ -1,6 +1,6 @@
 public class Alien extends Sprite {
 
-    private final int INITIAL_X = 400;
+    private final int INITIAL_X = 600;
 
     public Alien(int x, int y) { //класс, у которого есть координаты получаемые при вызове
         super(x, y);
