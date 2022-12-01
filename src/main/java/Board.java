@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
-public class Board extends JPanel implements ActionListener, BoardLevel2 {
-
+public class Board extends JPanel implements ActionListener{
     private Image background;
     private Timer timer;
     private SpaceShip spaceship;
@@ -120,16 +119,11 @@ public class Board extends JPanel implements ActionListener, BoardLevel2 {
     private void drawGameOver(Graphics g) { //переход на 2 уровень
 
         if (aliens.size() == 0) {
-            level2();
+            Button.nextLevelButton();
+            Button.exitButton();
         } else {
-            String msg = "Game Over";
-            Font small = new Font("Helvetica", Font.BOLD, 14);
-            FontMetrics fm = getFontMetrics(small);
-
-            g.setColor(Color.white);
-            g.setFont(small);
-            g.drawString(msg, (B_WIDTH - fm.stringWidth(msg)) / 2,
-                    B_HEIGHT / 2);
+            Button.newGameButton();
+            Button.exitButton();
         }
     }
 
@@ -233,33 +227,6 @@ public class Board extends JPanel implements ActionListener, BoardLevel2 {
         }
     }
 
-    public void level2(){
-        loadImage2();
-        paintComponent2(Graphics h);
-    }
-    private void loadImage2() {
-
-        ImageIcon ii = new ImageIcon("src/resources/background2.jpg");
-        background = ii.getImage();
-    }
-
-    @Override
-    public void paintComponent2(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(background, 0, 0, null);
-
-
-        if (ingame) {
-
-            drawObjects(g);
-
-        } else {
-
-            drawGameOver(g);
-        }
-
-        Toolkit.getDefaultToolkit().sync();
-    }
 
     private class TAdapter extends KeyAdapter {
 
